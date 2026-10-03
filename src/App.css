@@ -1761,36 +1761,21 @@
 .login-page-wrapper {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: var(--bg-page);
   position: relative;
-  overflow: hidden;
-}
-
-.login-topbar {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--border-light);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
-.login-topbar-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  padding: 24px 20px;
 }
 
 .login-back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.88rem;
+  gap: 6px;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-body);
-  padding: 8px 16px;
+  padding: 6px 14px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-card);
   background: #ffffff;
@@ -1804,18 +1789,17 @@
 }
 
 .login-main-container {
-  flex: 1;
+  width: 100%;
+  max-width: 980px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px 24px;
 }
 
 .login-grid {
   width: 100%;
-  max-width: 1040px;
   display: grid;
-  grid-template-columns: 1.15fr 0.95fr;
+  grid-template-columns: 1.15fr 0.9fr;
   background: #ffffff;
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-card);
@@ -1824,7 +1808,7 @@
 }
 
 .login-card-container {
-  padding: 48px 44px;
+  padding: 30px 36px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1832,20 +1816,20 @@
 
 .login-card {
   width: 100%;
-  max-width: 440px;
+  max-width: 420px;
   margin: 0 auto;
 }
 
 .login-title {
-  font-size: 2.1rem;
-  margin-bottom: 8px;
+  font-size: 1.75rem;
+  margin-bottom: 4px;
 }
 
 .login-subtitle {
-  font-size: 0.92rem;
+  font-size: 0.86rem;
   color: var(--text-muted);
-  line-height: 1.5;
-  margin-bottom: 22px;
+  line-height: 1.45;
+  margin-bottom: 16px;
 }
 
 /* Demo Credentials Box */
@@ -1853,11 +1837,11 @@
   background: #fbf9ff;
   border: 1px dashed var(--brand-purple-border);
   border-radius: var(--radius-md);
-  padding: 10px 14px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 .demo-credentials-text {
@@ -1866,7 +1850,7 @@
 }
 
 .demo-label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--brand-purple);
   text-transform: uppercase;
@@ -1874,7 +1858,7 @@
 }
 
 .demo-email {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--text-main);
   font-weight: 600;
 }
@@ -1882,9 +1866,9 @@
 .demo-fill-btn {
   background: var(--brand-purple-soft);
   color: var(--brand-purple);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: var(--radius-full);
 }
 
@@ -1898,20 +1882,20 @@
   border: 1px solid #fed7d7;
   color: #dc2626;
   border-radius: var(--radius-md);
-  padding: 10px 14px;
-  font-size: 0.84rem;
+  padding: 8px 12px;
+  font-size: 0.82rem;
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 /* Social Login */
 .social-login-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .social-btn {
@@ -1921,9 +1905,9 @@
   gap: 8px;
   background: #ffffff;
   border: 1px solid var(--border-card);
-  padding: 10px 16px;
+  padding: 8px 14px;
   border-radius: var(--radius-md);
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: var(--text-main);
   transition: var(--transition);
@@ -1939,8 +1923,8 @@
   align-items: center;
   text-align: center;
   color: var(--text-muted);
-  font-size: 0.8rem;
-  margin-bottom: 20px;
+  font-size: 0.76rem;
+  margin-bottom: 14px;
 }
 
 .login-divider::before,
@@ -1951,24 +1935,24 @@
 }
 
 .login-divider span {
-  padding: 0 12px;
+  padding: 0 10px;
 }
 
 /* Form Groups */
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .form-group label {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-main);
 }
@@ -1980,7 +1964,7 @@
 }
 
 .forgot-link {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--brand-purple);
   font-weight: 600;
 }
@@ -2007,21 +1991,21 @@
 
 .input-icon {
   position: absolute;
-  left: 14px;
+  left: 12px;
   color: var(--text-muted);
   pointer-events: none;
 }
 
 .input-with-icon input {
   width: 100%;
-  padding: 12px 14px 12px 42px;
-  font-size: 0.92rem;
+  padding: 10px 12px 10px 38px;
+  font-size: 0.88rem;
   color: var(--text-main);
   background: transparent;
 }
 
 .password-toggle-btn {
-  padding: 0 14px;
+  padding: 0 12px;
   color: var(--text-muted);
   display: flex;
   align-items: center;
@@ -2036,40 +2020,40 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: -4px;
+  margin-top: -2px;
 }
 
 .checkbox-label {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.84rem;
+  gap: 6px;
+  font-size: 0.8rem;
   color: var(--text-body);
   cursor: pointer;
 }
 
 .checkbox-label input[type="checkbox"] {
   accent-color: var(--brand-purple);
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
 }
 
 .login-submit-btn {
   width: 100%;
-  padding: 13px;
+  padding: 11px;
   border-radius: var(--radius-full);
-  font-size: 0.96rem;
-  margin-top: 6px;
+  font-size: 0.92rem;
+  margin-top: 4px;
 }
 
 .login-card-footer {
-  margin-top: 24px;
+  margin-top: 16px;
   text-align: center;
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   color: var(--text-body);
   border-top: 1px solid var(--border-light);
-  padding-top: 16px;
+  padding-top: 12px;
 }
 
 .link-highlight {
@@ -2089,7 +2073,7 @@
 /* Showcase Panel */
 .login-showcase-panel {
   background: linear-gradient(135deg, #150b38 0%, #291166 50%, #461b96 100%);
-  padding: 48px 40px;
+  padding: 32px 32px;
   color: #ffffff;
   position: relative;
   overflow: hidden;
@@ -2102,8 +2086,8 @@
   position: absolute;
   top: -50px;
   right: -50px;
-  width: 280px;
-  height: 280px;
+  width: 240px;
+  height: 240px;
   background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
   pointer-events: none;
 }
@@ -2113,38 +2097,37 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .showcase-title {
-  font-size: 1.85rem;
+  font-size: 1.55rem;
   line-height: 1.3;
   color: #ffffff;
   font-weight: 800;
 }
 
 .showcase-desc {
-  font-size: 0.92rem;
+  font-size: 0.86rem;
   color: rgba(255, 255, 255, 0.82);
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 .showcase-features-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-top: 8px;
+  gap: 12px;
 }
 
 .showcase-feature-item {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
 }
 
 .feature-icon-box {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -2156,30 +2139,29 @@
 }
 
 .showcase-feature-item h4 {
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   color: #ffffff;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
   font-weight: 700;
 }
 
 .showcase-feature-item p {
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   color: rgba(255, 255, 255, 0.72);
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .showcase-preview-pill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 10px 16px;
+  padding: 8px 14px;
   border-radius: var(--radius-full);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   color: #ffffff;
   backdrop-filter: blur(8px);
-  margin-top: 10px;
 }
 
 .live-pulse-dot {
@@ -2199,7 +2181,7 @@
     display: none;
   }
   .login-card-container {
-    padding: 36px 24px;
+    padding: 28px 20px;
   }
 }
 
