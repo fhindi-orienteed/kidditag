@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   ShieldCheck,
-  Gift,
-  User,
   Menu,
   X,
   ChevronRight,
-  Sparkles,
-  LayoutDashboard
 } from 'lucide-react';
 
-export default function Navbar({ onOpenActivation, onToggleDashboard, currentView }) {
+export default function Navbar({ onOpenActivation }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const scrollToSection = (e, id) => {
     e.preventDefault();
-    if (currentView === 'dashboard') {
-      onToggleDashboard();
+    if (location.pathname !== '/') {
+      navigate('/');
       setTimeout(() => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+      }, 150);
     } else {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -33,12 +32,12 @@ export default function Navbar({ onOpenActivation, onToggleDashboard, currentVie
       <div className="container">
         <nav className="navbar" aria-label="Main Navigation">
           {/* Brand Logo */}
-          <div className="nav-brand" onClick={() => currentView === 'dashboard' && onToggleDashboard()}>
+          <Link to="/" className="nav-brand">
             <div className="brand-icon-box">
               <ShieldCheck size={22} strokeWidth={2.4} />
             </div>
             <span className="brand-name">KiddieTag</span>
-          </div>
+          </Link>
 
           {/* Desktop Nav Links */}
           <ul className="nav-links">
@@ -100,16 +99,13 @@ export default function Navbar({ onOpenActivation, onToggleDashboard, currentVie
 
           {/* Nav Actions */}
           <div className="nav-actions">
-
-            <button
+            <Link
+              to="/auth/login"
               className="nav-cta-btn"
-              onClick={() => onOpenActivation()}
-              id="nav-register-btn"
+              id="nav-login-btn"
             >
               <span>Login</span>
-              <ChevronRight size={16} />
-            </button>
-
+            </Link>
 
             {/* Mobile Hamburger Button */}
             <button
@@ -158,24 +154,22 @@ export default function Navbar({ onOpenActivation, onToggleDashboard, currentVie
           </li>
         </ul>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '10px' }}>
-          <button
+          <Link
+            to="/auth/login"
             className="btn-primary"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span>Login to Dashboard</span>
+            <ChevronRight size={16} />
+          </Link>
+          <button
+            className="btn-secondary"
             onClick={() => {
               setMobileMenuOpen(false);
               onOpenActivation();
             }}
           >
             Register a Tag ⚡
-          </button>
-          <button
-            className="btn-secondary"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onToggleDashboard();
-            }}
-          >
-            <LayoutDashboard size={18} />
-            <span>Open Parent Dashboard</span>
           </button>
         </div>
       </div>
