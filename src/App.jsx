@@ -51,11 +51,7 @@ export default function App() {
         <Route 
           path="/dashboard" 
           element={
-            <>
-              <Navbar onOpenActivation={handleOpenActivation} />
-              <DashboardPage onOpenActivation={handleOpenActivation} />
-              <Footer onOpenActivation={handleOpenActivation} />
-            </>
+            <DashboardPage onOpenActivation={handleOpenActivation} />
           } 
         />
 

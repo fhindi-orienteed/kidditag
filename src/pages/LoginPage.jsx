@@ -51,29 +51,26 @@ export default function LoginPage({ onOpenActivation }) {
 
   return (
     <div className="login-page-wrapper">
-      {/* Top Bar */}
-      <header className="login-topbar">
-        <div className="container login-topbar-inner">
-          <Link to="/" className="nav-brand">
-            <div className="brand-icon-box">
-              <ShieldCheck size={22} strokeWidth={2.4} />
-            </div>
-            <span className="brand-name">KiddieTag</span>
-          </Link>
-
-          <Link to="/" className="login-back-btn">
-            <ArrowLeft size={16} />
-            <span>Back to Website</span>
-          </Link>
-        </div>
-      </header>
-
       {/* Main Login Grid */}
       <div className="login-main-container">
         <div className="login-grid">
           {/* Left Column: Form Card */}
           <div className="login-card-container">
             <div className="login-card">
+              {/* Brand and Back Link */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+                <Link to="/" className="nav-brand" style={{ gap: 8 }}>
+                  <div className="brand-icon-box" style={{ width: 34, height: 34 }}>
+                    <ShieldCheck size={18} strokeWidth={2.4} />
+                  </div>
+                  <span className="brand-name" style={{ fontSize: '1.2rem' }}>KiddieTag</span>
+                </Link>
+
+                <Link to="/" className="login-back-btn" style={{ fontSize: '0.82rem', padding: '6px 12px' }}>
+                  <ArrowLeft size={14} />
+                  <span>Back to Home</span>
+                </Link>
+              </div>
               <div className="login-header">
                 <div className="section-pill purple" style={{ marginBottom: 12 }}>
                   <Sparkles size={13} />
