@@ -24,23 +24,70 @@ export default function LoginPage({ onOpenActivation }) {
   const [rememberMe, setRememberMe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [tempToken, setTempToken] = useState("");
+  const [is2FA, setIs2FA] = useState(false);
+  const [twoFactorCode, setTwoFactorCode] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg("");
-
-    if (!email || !password) {
-      setErrorMsg("Please enter both your email and password.");
-      return;
-    }
-
     setIsLoading(true);
 
-    // Simulate login authentication
-    setTimeout(() => {
+    try {
+      if (is2FA) {
+        // Verify 2FA code
+        const response = await fetch("http://localhost:3000/api/auth/2fa/verify-login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tempToken, code: twoFactorCode }),
+        });
+
+        const data = await response.json();
+        setIsLoading(false);
+
+        if (!response.ok) {
+          setErrorMsg(data.message || "Invalid 2FA code.");
+          return;
+        }
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        navigate("/dashboard");
+        return;
+      }
+
+      // Standard Login
+      const response = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userName: email,
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
       setIsLoading(false);
+
+      if (!response.ok) {
+        setErrorMsg(data.message || "Login failed. Please check your credentials.");
+        return;
+      }
+
+      if (data.requires2FA) {
+        setIs2FA(true);
+        setTempToken(data.tempToken);
+        setErrorMsg("");
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/dashboard");
-    }, 900);
+    } catch (err) {
+      setIsLoading(false);
+      setErrorMsg("Failed to connect to backend server. Make sure kidditag-api is running.");
+    }
   };
 
   return (
@@ -98,69 +145,66 @@ export default function LoginPage({ onOpenActivation }) {
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="login-form">
-                <div className="form-group">
-                  <label htmlFor="login-email">Email Address</label>
-                  <div className="input-with-icon">
-                    <Mail size={18} className="input-icon" />
-                    <input
-                      id="login-email"
-                      type="email"
-                      placeholder="name@example.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
+                {is2FA ? (
+                  <div className="form-group">
+                    <label htmlFor="login-2fa">Enter 6-Digit 2FA Code</label>
+                    <div className="input-with-icon">
+                      <ShieldCheck size={18} className="input-icon" />
+                      <input
+                        id="login-2fa"
+                        type="text"
+                        maxLength={6}
+                        placeholder="123456"
+                        value={twoFactorCode}
+                        onChange={(e) => setTwoFactorCode(e.target.value)}
+                        required
+                        autoFocus
+                      />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <>
+                    <div className="form-group">
+                      <label htmlFor="login-email">Username or Email</label>
+                      <div className="input-with-icon">
+                        <Mail size={18} className="input-icon" />
+                        <input
+                          id="login-email"
+                          type="text"
+                          placeholder="Username or Email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
 
-                <div className="form-group">
-                  <div className="form-label-row">
-                    <label htmlFor="login-password">Password</label>
-                    <a
-                      href="#forgot"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        alert(
-                          "Password reset link sent to " +
-                            (email || "your email"),
-                        );
-                      }}
-                      className="forgot-link"
-                    >
-                      Forgot password?
-                    </a>
-                  </div>
-                  <div className="input-with-icon">
-                    <Lock size={18} className="input-icon" />
-                    <input
-                      id="login-password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="••••••••••••"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                    <button
-                      type="button"
-                      className="password-toggle-btn"
-                      onClick={() => setShowPassword(!showPassword)}
-                      aria-label="Toggle password visibility"
-                    >
-                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="form-options-row">
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      checked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                    />
-                    <span>Remember this device</span>
-                  </label>
-                </div>
+                    <div className="form-group">
+                      <div className="form-label-row">
+                        <label htmlFor="login-password">Password</label>
+                      </div>
+                      <div className="input-with-icon">
+                        <Lock size={18} className="input-icon" />
+                        <input
+                          id="login-password"
+                          type={showPassword ? "text" : "password"}
+                          placeholder="••••••••••••"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                        <button
+                          type="button"
+                          className="password-toggle-btn"
+                          onClick={() => setShowPassword(!showPassword)}
+                          aria-label="Toggle password visibility"
+                        >
+                          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 <button
                   type="submit"
@@ -168,10 +212,10 @@ export default function LoginPage({ onOpenActivation }) {
                   disabled={isLoading}
                 >
                   {isLoading ? (
-                    <span>Signing in...</span>
+                    <span>{is2FA ? "Verifying Code..." : "Signing in..."}</span>
                   ) : (
                     <>
-                      <span>Sign In to Dashboard</span>
+                      <span>{is2FA ? "Verify 2FA Code" : "Sign In to Dashboard"}</span>
                       <ArrowRight size={18} />
                     </>
                   )}
