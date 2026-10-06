@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ShieldCheck, ArrowRight, Phone, Check } from 'lucide-react';
 
 interface FooterProps {
@@ -103,10 +104,10 @@ export default function Footer({ onOpenActivation: _onOpenActivation }: FooterPr
         <div className="footer-bottom-bar">
           <p>© 2026 KiddieTag Technologies Inc. All rights reserved.</p>
           <div className="footer-legal-links">
-            <a href="#hero">Privacy Policy</a>
-            <a href="#hero">Terms of Service</a>
-            <a href="#hero">Child Safeguard Protocol</a>
-            <a href="#hero">Support Center</a>
+            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/terms">Terms of Service</Link>
+            <Link to="/privacy">Child Safeguard Protocol</Link>
+            <Link to="/contact">Support Center</Link>
           </div>
         </div>
       </div>

@@ -8,14 +8,18 @@ import Pricing from '../components/Pricing';
 import Faq from '../components/Faq';
 import CtaBanner from '../components/CtaBanner';
 import PrivacyRibbon from '../components/PrivacyRibbon';
+import { useWebsiteContext } from '../layout/websiteContext';
 
 interface LandingPageProps {
   onOpenActivation?: (code?: string) => void;
 }
 
-export default function LandingPage({ onOpenActivation }: LandingPageProps) {
+export default function LandingPage({ onOpenActivation: propOpenActivation }: LandingPageProps) {
+  const ctx = useWebsiteContext();
+  const onOpenActivation = propOpenActivation || ctx?.onOpenActivation;
+
   return (
-    <main>
+    <>
       {/* 1. Hero Section */}
       <Hero onOpenActivation={handleOpenActivation(onOpenActivation)} />
 
@@ -45,7 +49,7 @@ export default function LandingPage({ onOpenActivation }: LandingPageProps) {
 
       {/* 10. Privacy & Trust Ribbon */}
       <PrivacyRibbon />
-    </main>
+    </>
   );
 }
 

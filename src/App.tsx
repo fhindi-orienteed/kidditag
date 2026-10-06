@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import WebsiteLayout from "./layout/WebsiteLayout";
 import LandingPage from "./pages/LandingPage";
+import PrivacyPage from "./pages/PrivacyPage";
+import TermsPage from "./pages/TermsPage";
+import ContactPage from "./pages/ContactPage";
 import AuthLayout from "./layout/AuthLayout";
 import LoginPage from "./pages/auth/login";
 import RegisterPage from "./pages/auth/register";
@@ -13,7 +16,6 @@ import MapPage from "./pages/dashboard/map";
 import ContactsPage from "./pages/dashboard/contacts";
 import MedicalPage from "./pages/dashboard/medical";
 import SettingsPage from "./pages/dashboard/settings";
-import Footer from "./components/Footer";
 import ActivationModal from "./components/ActivationModal";
 import "./App.css";
 
@@ -36,19 +38,15 @@ export default function App() {
   return (
     <div className="app-root">
       <Routes>
-        {/* Landing Page */}
-        <Route
-          path="/"
-          element={
-            <>
-              <Navbar onOpenActivation={handleOpenActivation} />
-              <LandingPage onOpenActivation={handleOpenActivation} />
-              <Footer onOpenActivation={handleOpenActivation} />
-            </>
-          }
-        />
+        {/* Public Website Pages with Common WebsiteLayout */}
+        <Route element={<WebsiteLayout onOpenActivation={handleOpenActivation} />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Route>
 
-        {/* Auth Pages with Common Layout */}
+        {/* Auth Pages with Common AuthLayout */}
         <Route
           path="/auth"
           element={<AuthLayout onOpenActivation={handleOpenActivation} />}
@@ -62,7 +60,7 @@ export default function App() {
         <Route path="/login" element={<Navigate to="/auth/login" replace />} />
         <Route path="/register" element={<Navigate to="/auth/register" replace />} />
 
-        {/* Parent Dashboard with Common Layout */}
+        {/* Parent Dashboard with Common DashboardLayout */}
         <Route
           path="/dashboard"
           element={<DashboardLayout onOpenActivation={handleOpenActivation} />}
@@ -85,17 +83,10 @@ export default function App() {
           <Route path="settings" element={<SettingsPage />} />
         </Route>
 
-        {/* Fallback */}
-        <Route
-          path="*"
-          element={
-            <>
-              <Navbar onOpenActivation={handleOpenActivation} />
-              <LandingPage onOpenActivation={handleOpenActivation} />
-              <Footer onOpenActivation={handleOpenActivation} />
-            </>
-          }
-        />
+        {/* Fallback to Landing Page under WebsiteLayout */}
+        <Route element={<WebsiteLayout onOpenActivation={handleOpenActivation} />}>
+          <Route path="*" element={<LandingPage />} />
+        </Route>
       </Routes>
 
       {/* Global Interactive Activation Modal */}
