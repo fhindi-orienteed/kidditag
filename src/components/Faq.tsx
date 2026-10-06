@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
-import { ChevronDown, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
+
+interface FaqItem {
+  q: string;
+  a: string;
+}
 
 export default function Faq() {
-  const [openIndex, setOpenIndex] = useState(0); // Open first item by default like the image
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // Open first item by default
 
-  const faqs = [
+  const faqs: FaqItem[] = [
     {
       q: 'Does the person who finds my child need to download an app?',
       a: 'No! Any smartphone with a standard camera can scan the QR code instantly. It opens a lightweight, fast-loading web page with the emergency info and direct tap-to-call buttons. No apps, downloads, or logins required.'
@@ -23,7 +28,7 @@ export default function Faq() {
     }
   ];
 
-  const toggleItem = (idx) => {
+  const toggleItem = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
   };
 
@@ -32,7 +37,6 @@ export default function Faq() {
       <div className="container">
         {/* Header */}
         <div className="section-header">
-
           <h2 className="section-title">Frequently Asked Questions</h2>
           <p className="section-desc">
             Everything you need to know about tag security, scanning, and privacy.

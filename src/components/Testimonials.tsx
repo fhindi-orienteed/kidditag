@@ -1,8 +1,15 @@
-import React from 'react';
 import { Star, CheckCircle, Sparkles } from 'lucide-react';
 
+interface ReviewItem {
+  quote: string;
+  author: string;
+  location: string;
+  tag: string;
+  initials: string;
+}
+
 export default function Testimonials() {
-  const reviews = [
+  const reviews: ReviewItem[] = [
     {
       quote:
         '“My 4-year-old wandered off in Disney World for 4 minutes. A kind family scanned his KiddieTag and called me instantly. Best peace of mind I ever spent.”',

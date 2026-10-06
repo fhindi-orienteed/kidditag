@@ -1,14 +1,27 @@
-import React from 'react';
 import { 
   Tag, 
   ShieldCheck, 
   BellRing, 
-  ArrowRight,
-  Sparkles
+  ArrowRight, 
+  Sparkles,
+  type LucideIcon,
 } from 'lucide-react';
 
-export default function HowItWorks({ onOpenActivation }) {
-  const steps = [
+interface HowItWorksProps {
+  onOpenActivation?: () => void;
+}
+
+interface StepItem {
+  step: string;
+  title: string;
+  desc: string;
+  linkText: string;
+  icon: LucideIcon;
+  colorClass: string;
+}
+
+export default function HowItWorks({ onOpenActivation }: HowItWorksProps) {
+  const steps: StepItem[] = [
     {
       step: 'STEP 01',
       title: 'Get & customize tag',
@@ -67,7 +80,7 @@ export default function HowItWorks({ onOpenActivation }) {
                   className="step-link"
                   onClick={(e) => {
                     e.preventDefault();
-                    onOpenActivation();
+                    onOpenActivation?.();
                   }}
                 >
                   <span>{item.linkText}</span>

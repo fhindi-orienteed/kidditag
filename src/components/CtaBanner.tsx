@@ -1,7 +1,11 @@
-import React from 'react';
-import { Sparkles, ShieldCheck, ArrowRight, LayoutDashboard } from 'lucide-react';
+import { Sparkles, ArrowRight, LayoutDashboard } from 'lucide-react';
 
-export default function CtaBanner({ onOpenActivation, onToggleDashboard }) {
+interface CtaBannerProps {
+  onOpenActivation?: () => void;
+  onToggleDashboard?: () => void;
+}
+
+export default function CtaBanner({ onOpenActivation, onToggleDashboard }: CtaBannerProps) {
   return (
     <section className="cta-section">
       <div className="container">
@@ -24,7 +28,7 @@ export default function CtaBanner({ onOpenActivation, onToggleDashboard }) {
           <div className="cta-actions-right">
             <button 
               className="btn-white"
-              onClick={() => onOpenActivation()}
+              onClick={() => onOpenActivation?.()}
               id="cta-order-btn"
             >
               <span>Order a KiddieTag Now</span>

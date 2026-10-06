@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ShieldCheck,
@@ -7,28 +7,27 @@ import {
   Eye,
   EyeOff,
   ArrowRight,
-  ArrowLeft,
   Sparkles,
-  MapPin,
-  Smartphone,
-  Shield,
   AlertCircle,
 } from "lucide-react";
 import LoginPageDetails from "./details";
 
-export default function LoginPage({ onOpenActivation }) {
+interface LoginPageProps {
+  onOpenActivation?: () => void;
+}
+
+export default function LoginPage({ onOpenActivation }: LoginPageProps) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [tempToken, setTempToken] = useState("");
   const [is2FA, setIs2FA] = useState(false);
   const [twoFactorCode, setTwoFactorCode] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMsg("");
     setIsLoading(true);
@@ -84,7 +83,7 @@ export default function LoginPage({ onOpenActivation }) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/dashboard");
-    } catch (err) {
+    } catch {
       setIsLoading(false);
       setErrorMsg("Failed to connect to backend server. Make sure kidditag-api is running.");
     }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage";
@@ -13,12 +13,12 @@ export default function App() {
   const [activationCode, setActivationCode] = useState("");
   const navigate = useNavigate();
 
-  const handleOpenActivation = (code = "") => {
+  const handleOpenActivation = (code: string = "") => {
     setActivationCode(code || "KT-7842");
     setIsActivationOpen(true);
   };
 
-  const handleCompleteActivation = (data) => {
+  const handleCompleteActivation = (_data?: unknown) => {
     setIsActivationOpen(false);
     navigate("/dashboard");
     window.scrollTo({ top: 0, behavior: "smooth" });

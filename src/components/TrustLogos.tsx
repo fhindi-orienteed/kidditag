@@ -1,14 +1,19 @@
-import React from "react";
 import {
   FerrisWheel,
   Tent,
   GraduationCap,
   ShieldCheck,
-  Sparkles,
+  type LucideIcon,
 } from "lucide-react";
 
+interface TrustPartner {
+  icon: LucideIcon;
+  label: string;
+  sub: string;
+}
+
 export default function TrustLogos() {
-  const trustPartners = [
+  const trustPartners: TrustPartner[] = [
     {
       icon: FerrisWheel,
       label: "Theme Park Approved",

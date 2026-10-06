@@ -1,4 +1,3 @@
-import React from 'react';
 import Hero from '../components/Hero';
 import TrustLogos from '../components/TrustLogos';
 import HowItWorks from '../components/HowItWorks';
@@ -10,7 +9,11 @@ import Faq from '../components/Faq';
 import CtaBanner from '../components/CtaBanner';
 import PrivacyRibbon from '../components/PrivacyRibbon';
 
-export default function LandingPage({ onOpenActivation }) {
+interface LandingPageProps {
+  onOpenActivation?: (code?: string) => void;
+}
+
+export default function LandingPage({ onOpenActivation }: LandingPageProps) {
   return (
     <main>
       {/* 1. Hero Section */}
@@ -20,25 +23,25 @@ export default function LandingPage({ onOpenActivation }) {
       <TrustLogos />
 
       {/* 3. How KiddieTag works (3 steps) */}
-      <HowItWorks onOpenActivation={() => onOpenActivation()} />
+      <HowItWorks onOpenActivation={() => onOpenActivation?.()} />
 
       {/* 4. Experience the tag scan in action (Live Interactive QR & Simulator) */}
-      <InteractiveScanDemo onOpenActivation={() => onOpenActivation()} />
+      <InteractiveScanDemo onOpenActivation={() => onOpenActivation?.()} />
 
       {/* 5. Designed for anywhere kids wander (4 Use Cases) */}
-      <UseCases onOpenActivation={() => onOpenActivation()} />
+      <UseCases onOpenActivation={() => onOpenActivation?.()} />
 
       {/* 6. What caring parents say (Testimonials) */}
       <Testimonials />
 
       {/* 7. Pricing (Monthly / Yearly toggle & plans) */}
-      <Pricing onOpenActivation={() => onOpenActivation()} />
+      <Pricing onOpenActivation={() => onOpenActivation?.()} />
 
       {/* 8. Frequently Asked Questions (Accordion) */}
       <Faq />
 
       {/* 9. High-impact CTA Banner */}
-      <CtaBanner onOpenActivation={() => onOpenActivation()} />
+      <CtaBanner onOpenActivation={() => onOpenActivation?.()} />
 
       {/* 10. Privacy & Trust Ribbon */}
       <PrivacyRibbon />
@@ -46,8 +49,8 @@ export default function LandingPage({ onOpenActivation }) {
   );
 }
 
-function handleOpenActivation(onOpenActivation) {
-  return (code) => {
+function handleOpenActivation(onOpenActivation?: (code?: string) => void) {
+  return (code?: string) => {
     if (onOpenActivation) onOpenActivation(code);
   };
 }

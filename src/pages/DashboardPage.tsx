@@ -1,8 +1,11 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ParentDashboard from '../components/ParentDashboard';
 
-export default function DashboardPage({ onOpenActivation }) {
+interface DashboardPageProps {
+  onOpenActivation?: (code?: string) => void;
+}
+
+export default function DashboardPage({ onOpenActivation }: DashboardPageProps) {
   const navigate = useNavigate();
 
   return (

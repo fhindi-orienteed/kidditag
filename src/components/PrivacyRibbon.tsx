@@ -1,4 +1,3 @@
-import React from 'react';
 import { Lock, ShieldCheck, HeartHandshake } from 'lucide-react';
 
 export default function PrivacyRibbon() {
