@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { ShieldCheck, ArrowRight, Phone, MessageSquare, Check } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Phone, Check } from 'lucide-react';
 
-export default function Footer({ onOpenActivation }) {
+interface FooterProps {
+  onOpenActivation?: () => void;
+}
+
+export default function Footer({ onOpenActivation: _onOpenActivation }: FooterProps) {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (email) {
       setSubscribed(true);

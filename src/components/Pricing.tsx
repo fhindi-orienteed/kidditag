@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import { Check, Sparkles, Shield, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { Check } from 'lucide-react';
 
-export default function Pricing({ onOpenActivation }) {
-  const [billingCycle, setBillingCycle] = useState('monthly'); // 'monthly' | 'yearly'
+interface PricingProps {
+  onOpenActivation?: () => void;
+}
+
+export default function Pricing({ onOpenActivation }: PricingProps) {
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
 
   return (
     <section className="pricing-section" id="pricing">
@@ -47,7 +51,7 @@ export default function Pricing({ onOpenActivation }) {
 
             <button
               className="btn-secondary pricing-cta-btn"
-              onClick={() => onOpenActivation()}
+              onClick={() => onOpenActivation?.()}
               id="plan-explorer-btn"
             >
               Get Started
@@ -93,7 +97,7 @@ export default function Pricing({ onOpenActivation }) {
 
             <button
               className="btn-primary pricing-cta-btn"
-              onClick={() => onOpenActivation()}
+              onClick={() => onOpenActivation?.()}
               id="plan-family-btn"
             >
               Subscribe Now

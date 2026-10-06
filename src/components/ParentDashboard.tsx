@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import type { ChildProfile } from '../types';
 import { 
   ShieldCheck, 
   LayoutDashboard, 
@@ -17,17 +18,18 @@ import {
   LogOut, 
   ArrowLeft, 
   QrCode, 
-  Check, 
   ExternalLink, 
   Clock, 
   Smartphone,
-  Shield,
-  Radio,
-  Eye,
-  ChevronRight
+  Radio
 } from 'lucide-react';
 
-export default function ParentDashboard({ onBackToLanding, onOpenActivation }) {
+interface ParentDashboardProps {
+  onBackToLanding?: () => void;
+  onOpenActivation?: () => void;
+}
+
+export default function ParentDashboard({ onBackToLanding, onOpenActivation }: ParentDashboardProps) {
   const [activeTab, setActiveTab] = useState('overview'); // overview | tags | children | map | contacts | medical | settings
   const [selectedChild, setSelectedChild] = useState('maya');
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -40,7 +42,7 @@ export default function ParentDashboard({ onBackToLanding, onOpenActivation }) {
   const [acknowledgedAlert, setAcknowledgedAlert] = useState(false);
 
   // Mock data
-  const childrenData = {
+  const childrenData: Record<string, ChildProfile> = {
     maya: {
       name: 'Maya Sinclair',
       age: 5,
@@ -108,7 +110,7 @@ export default function ParentDashboard({ onBackToLanding, onOpenActivation }) {
 
   const currentChild = childrenData[selectedChild] || childrenData.maya;
 
-  const handleSaveMedical = (e) => {
+  const handleSaveMedical = (e: React.FormEvent) => {
     e.preventDefault();
     setSavedSuccess(true);
     setTimeout(() => setSavedSuccess(false), 3000);
@@ -213,7 +215,7 @@ export default function ParentDashboard({ onBackToLanding, onOpenActivation }) {
         <div className="dash-sidebar-footer">
           <button 
             className="dash-activate-tag-btn"
-            onClick={() => onOpenActivation()}
+            onClick={() => onOpenActivation?.()}
           >
             <Plus size={16} />
             <span>Activate New Tag ⚡</span>
@@ -434,7 +436,7 @@ export default function ParentDashboard({ onBackToLanding, onOpenActivation }) {
                       <button 
                         className="btn-primary"
                         style={{ padding: '6px 14px', fontSize: '0.8rem' }}
-                        onClick={() => onOpenActivation()}
+                        onClick={() => onOpenActivation?.()}
                       >
                         <Plus size={14} />
                         <span>Add Tag</span>
@@ -579,7 +581,7 @@ export default function ParentDashboard({ onBackToLanding, onOpenActivation }) {
                   <h2 className="dash-section-h2">Physical Smart Tags ({currentChild.tags.length})</h2>
                   <p className="dash-card-sub">All active tags linked to {currentChild.name}. Passive NFC & QR - zero charging needed.</p>
                 </div>
-                <button className="btn-primary" onClick={() => onOpenActivation()}>
+                <button className="btn-primary" onClick={() => onOpenActivation?.()}>
                   <Plus size={16} />
                   <span>Register Another Tag</span>
                 </button>
@@ -634,7 +636,7 @@ export default function ParentDashboard({ onBackToLanding, onOpenActivation }) {
                   <h2 className="dash-section-h2">Children Under Your Care</h2>
                   <p className="dash-card-sub">Profiles, medical specifics, and tags assigned to each child.</p>
                 </div>
-                <button className="btn-primary" onClick={() => onOpenActivation()}>
+                <button className="btn-primary" onClick={() => onOpenActivation?.()}>
                   <Plus size={16} />
                   <span>Add Child</span>
                 </button>

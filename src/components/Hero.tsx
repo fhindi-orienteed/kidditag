@@ -2,22 +2,24 @@ import React, { useState } from 'react';
 import { 
   ShieldCheck, 
   CheckCircle2, 
-  Smartphone, 
   PhoneCall, 
   AlertTriangle, 
   MapPin, 
   Sparkles, 
   Lock,
-  ArrowRight
 } from 'lucide-react';
 
-export default function Hero({ onOpenActivation }) {
+interface HeroProps {
+  onOpenActivation?: (code?: string) => void;
+}
+
+export default function Hero({ onOpenActivation }: HeroProps) {
   const [activationInput, setActivationInput] = useState('');
   const [callSimulated, setCallSimulated] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onOpenActivation(activationInput);
+    onOpenActivation?.(activationInput);
   };
 
   const handleSimulateCall = () => {

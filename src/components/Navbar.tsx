@@ -7,12 +7,16 @@ import {
   ChevronRight,
 } from 'lucide-react';
 
-export default function Navbar({ onOpenActivation }) {
+interface NavbarProps {
+  onOpenActivation?: () => void;
+}
+
+export default function Navbar({ onOpenActivation }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const scrollToSection = (e, id) => {
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     if (location.pathname !== '/') {
       navigate('/');
@@ -166,7 +170,7 @@ export default function Navbar({ onOpenActivation }) {
             className="btn-secondary"
             onClick={() => {
               setMobileMenuOpen(false);
-              onOpenActivation();
+              onOpenActivation?.();
             }}
           >
             Register a Tag ⚡

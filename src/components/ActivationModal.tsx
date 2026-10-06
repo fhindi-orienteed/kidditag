@@ -1,7 +1,27 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, ShieldCheck, ArrowRight, Sparkles, AlertCircle } from 'lucide-react';
+import { X, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 
-export default function ActivationModal({ isOpen, onClose, initialCode, onCompleteActivation }) {
+export interface ActivationData {
+  tagCode: string;
+  childName: string;
+  childAge: string;
+  primaryPhone: string;
+  allergies: string;
+}
+
+interface ActivationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  initialCode?: string;
+  onCompleteActivation?: (data: ActivationData) => void;
+}
+
+export default function ActivationModal({ 
+  isOpen, 
+  onClose, 
+  initialCode, 
+  onCompleteActivation 
+}: ActivationModalProps) {
   const [step, setStep] = useState(1);
   const [tagCode, setTagCode] = useState(initialCode || 'KT-9204');
   const [childName, setChildName] = useState('Maya Sinclair');
@@ -11,7 +31,7 @@ export default function ActivationModal({ isOpen, onClose, initialCode, onComple
 
   if (!isOpen) return null;
 
-  const handleNext = (e) => {
+  const handleNext = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (step < 3) {
       setStep(step + 1);
@@ -211,7 +231,9 @@ export default function ActivationModal({ isOpen, onClose, initialCode, onComple
               style={{ width: '100%', padding: '12px' }}
               onClick={() => {
                 onClose();
-                if (onCompleteActivation) onCompleteActivation({ tagCode, childName, childAge, primaryPhone, allergies });
+                if (onCompleteActivation) {
+                  onCompleteActivation({ tagCode, childName, childAge, primaryPhone, allergies });
+                }
               }}
             >
               Go to Parent Dashboard →

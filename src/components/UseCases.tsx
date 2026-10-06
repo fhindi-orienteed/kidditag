@@ -1,15 +1,27 @@
-import React from 'react';
 import { 
   Backpack, 
   Waves, 
   Compass, 
   Plane, 
   ArrowRight, 
-  Sparkles 
+  Sparkles,
+  type LucideIcon,
 } from 'lucide-react';
 
-export default function UseCases({ onOpenActivation }) {
-  const cases = [
+interface UseCasesProps {
+  onOpenActivation?: () => void;
+}
+
+interface CaseItem {
+  title: string;
+  desc: string;
+  linkText: string;
+  icon: LucideIcon;
+  colorClass: string;
+}
+
+export default function UseCases({ onOpenActivation }: UseCasesProps) {
+  const cases: CaseItem[] = [
     {
       title: 'School & Field Trips',
       desc: 'Never lose sight of young students during zoo trips, museum visits, or bus transit. Teachers and chaperones can identify lost kids instantly.',
@@ -71,7 +83,7 @@ export default function UseCases({ onOpenActivation }) {
                   className="use-case-link"
                   onClick={(e) => {
                     e.preventDefault();
-                    onOpenActivation();
+                    onOpenActivation?.();
                   }}
                 >
                   <span>{item.linkText}</span>

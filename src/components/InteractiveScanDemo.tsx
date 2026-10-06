@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
-  QrCode, 
-  Smartphone, 
   PhoneCall, 
   AlertTriangle, 
   MapPin, 
-  CheckCircle2, 
   Sparkles, 
-  ExternalLink,
-  ShieldAlert,
-  Layers,
-  Check
+  ShieldAlert, 
+  Check 
 } from 'lucide-react';
 
-export default function InteractiveScanDemo({ onOpenActivation }) {
-  const [activeTab, setActiveTab] = useState('finder'); // 'finder' | 'parent'
+interface InteractiveScanDemoProps {
+  onOpenActivation?: () => void;
+}
+
+export default function InteractiveScanDemo({ onOpenActivation: _onOpenActivation }: InteractiveScanDemoProps) {
+  const [activeTab, setActiveTab] = useState<'finder' | 'parent'>('finder');
   const [isScanning, setIsScanning] = useState(false);
-  const [callStatus, setCallStatus] = useState(null); // 'mother' | 'father' | null
+  const [callStatus, setCallStatus] = useState<'Mother' | 'Father' | null>(null);
   const [acknowledged, setAcknowledged] = useState(false);
 
   const triggerScanEffect = () => {
@@ -27,7 +26,7 @@ export default function InteractiveScanDemo({ onOpenActivation }) {
     }, 1200);
   };
 
-  const handleCall = (parent) => {
+  const handleCall = (parent: 'Mother' | 'Father') => {
     setCallStatus(parent);
     setTimeout(() => {
       setCallStatus(null);
