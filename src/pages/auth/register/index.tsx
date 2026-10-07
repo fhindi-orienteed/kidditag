@@ -44,8 +44,7 @@ export default function RegisterPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fullName: name,
-          userName: email,
+          userName: name,
           password: password,
         }),
       });
@@ -64,9 +63,7 @@ export default function RegisterPage() {
       }, 1500);
     } catch {
       setIsLoading(false);
-      // If backend is offline in demo, simulate successful registration and redirect to dashboard
-      localStorage.setItem("user", JSON.stringify({ userName: name || email }));
-      navigate("/dashboard");
+      setErrorMsg("Failed to connect to backend server. Make sure kidditag-api is running.");
     }
   };
 

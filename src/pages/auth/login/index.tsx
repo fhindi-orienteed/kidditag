@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ShieldCheck,
@@ -82,6 +82,54 @@ export default function LoginPage() {
       setErrorMsg("Failed to connect to backend server. Make sure kidditag-api is running.");
     }
   };
+
+  const handleGoogleLogin = async (idToken: string) => {
+    setErrorMsg("");
+    setIsLoading(true);
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/google", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
+
+      const data = await response.json();
+      setIsLoading(false);
+
+      if (!response.ok) {
+        setErrorMsg(data.message || "Google login failed.");
+        return;
+      }
+
+      if (data.requires2FA) {
+        setIs2FA(true);
+        setTempToken(data.tempToken);
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      navigate("/dashboard");
+    } catch {
+      setIsLoading(false);
+      setErrorMsg("Failed to connect to backend server.");
+    }
+  };
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.onload = () => {
+      (window as any).google?.accounts.id.initialize({
+        client_id: "YOUR_GOOGLE_CLIENT_ID",
+        callback: (response: any) => {
+          handleGoogleLogin(response.credential);
+        },
+      });
+    };
+    document.body.appendChild(script);
+  }, []);
 
   return (
     <>
@@ -187,7 +235,7 @@ export default function LoginPage() {
         <button
           type="button"
           className="social-btn"
-          onClick={() => navigate("/dashboard")}
+          onClick={() => (window as any).google?.accounts.id.prompt()}
         >
           <svg width="18" height="18" viewBox="0 0 24 24">
             <path
