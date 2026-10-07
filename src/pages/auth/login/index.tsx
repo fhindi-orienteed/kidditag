@@ -122,7 +122,7 @@ export default function LoginPage() {
     script.async = true;
     script.onload = () => {
       (window as any).google?.accounts.id.initialize({
-        client_id: "YOUR_GOOGLE_CLIENT_ID",
+        client_id: "396330148372-h138lsfqg7uefkum922vl4nf1ikghpc7.apps.googleusercontent.com",
         callback: (response: any) => {
           handleGoogleLogin(response.credential);
         },
